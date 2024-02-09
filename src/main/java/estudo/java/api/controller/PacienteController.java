@@ -1,8 +1,11 @@
 package estudo.java.api.controller;
 
 import estudo.java.api.domain.entities.Paciente;
+import estudo.java.api.domain.request.PacienteRequest;
+import estudo.java.api.domain.response.PacienteResponse;
 import estudo.java.api.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,23 +20,29 @@ public class PacienteController {
     private PacienteService pacienteService;
 
     @GetMapping
-    public ResponseEntity<List<Paciente>> getAllPacientes() {
-        return ResponseEntity.ok(pacienteService.getAllPacientes());
+    public ResponseEntity<List<PacienteResponse>> getAllPacientes() {
+        List<PacienteResponse> pacientes = pacienteService.getAllPacientes();
+        return ResponseEntity.ok(pacientes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> getPacienteById(@PathVariable UUID id) {
-        return ResponseEntity.ok(pacienteService.getPacienteById(id));
+    public ResponseEntity<PacienteResponse> getPacienteResponseById(@PathVariable UUID id) {
+        PacienteResponse pacienteResponse = pacienteService.getPacienteById(id);
+        if (pacienteResponse != null) {
+            return ResponseEntity.ok(pacienteResponse);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @PostMapping
-    public ResponseEntity<Paciente> createPaciente(@RequestBody Paciente paciente) {
-        return ResponseEntity.ok(pacienteService.createPaciente(paciente));
+    public ResponseEntity<PacienteResponse> createPaciente(@RequestBody PacienteRequest pacienteRequest) {
+        return ResponseEntity.ok(pacienteService.createPaciente(pacienteRequest));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Paciente> updatePaciente(@PathVariable UUID id, @RequestBody Paciente paciente) {
-        return ResponseEntity.ok(pacienteService.updatePaciente(id, paciente));
+    public ResponseEntity<PacienteResponse> updatePaciente(@PathVariable UUID id, @RequestBody PacienteRequest pacienteRequest) {
+        return ResponseEntity.ok(pacienteService.updatePaciente(id, pacienteRequest));
     }
 
     @DeleteMapping("/{id}")
