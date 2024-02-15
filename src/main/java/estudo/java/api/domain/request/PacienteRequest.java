@@ -1,9 +1,8 @@
 package estudo.java.api.domain.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+
 import java.util.UUID;
 
 @Getter
@@ -12,6 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PacienteRequest {
     private UUID id;
+    @NotBlank
     private String prontuario;
     private String historicoMedico;
     private PessoaRequest pessoa;

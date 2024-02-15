@@ -51,7 +51,8 @@ public class PacienteService {
                     .historicoMedico(paciente.getHistoricoMedico())
                     .build();
         }
-        return PacienteResponse.builder().build();
+        //return PacienteResponse.builder().build();
+        return null;
     }
 
     //Metodo para criar um paciente extendido de pessoa

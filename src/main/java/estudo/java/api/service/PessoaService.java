@@ -1,7 +1,10 @@
 package estudo.java.api.service;
 
 import estudo.java.api.domain.entities.Pessoa;
+import estudo.java.api.domain.request.MedicoRequest;
+import estudo.java.api.domain.request.PessoaRequest;
 import estudo.java.api.repository.PessoaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,28 +22,29 @@ public class PessoaService {
     }
 
     //Metodo utilizado para listar uma pessoa pelo seu ID.
-    public Pessoa getPessoaById(UUID id){
+    public Pessoa getPessoaById(UUID id) {
         return pessoaRepository.findById(id).stream().findFirst().orElse(null);
     }
 
     //Metodo utilizado para cadastrar uma pessoa.
-    public Pessoa createPessoa(Pessoa pessoa)
-    {
+    public Pessoa createPessoa(Pessoa pessoa) {
         return pessoaRepository.save(pessoa);
     }
 
     //Metodo utilizado para editar o cadastro de uma pessoa.
-    public Pessoa updatePessoa(UUID id, Pessoa pessoa){
+    public Pessoa updatePessoa(UUID id, Pessoa pessoa) {
         Pessoa pessoaId = getPessoaById(id);
-        if(pessoaId != null){
+        if (pessoaId != null) {
             pessoa.setId(pessoaId.getId());
         }
         return pessoaRepository.save(pessoa);
     }
 
     //Metodo utilizado para deletar uma pessoa cadastrada.
-    public void deletePessoa(UUID id){
+    public void deletePessoa(UUID id) {
         pessoaRepository.deleteById(id);
     }
 
+
 }
+

@@ -1,9 +1,9 @@
 package estudo.java.api.controller;
 
-import estudo.java.api.domain.entities.Paciente;
 import estudo.java.api.domain.request.PacienteRequest;
 import estudo.java.api.domain.response.PacienteResponse;
 import estudo.java.api.service.PacienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +36,7 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<PacienteResponse> createPaciente(@RequestBody PacienteRequest pacienteRequest) {
+    public ResponseEntity<PacienteResponse> createPaciente(@RequestBody @Valid PacienteRequest pacienteRequest) {
         return ResponseEntity.ok(pacienteService.createPaciente(pacienteRequest));
     }
 

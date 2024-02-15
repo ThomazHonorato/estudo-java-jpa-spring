@@ -1,15 +1,14 @@
 package estudo.java.api.domain.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MedicoRequest extends PessoaRequest{
+    private String nome;
     private String crm;
     private String especialidade;
 }
