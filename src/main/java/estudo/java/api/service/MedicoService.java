@@ -9,10 +9,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static io.micrometer.common.util.StringUtils.isNotBlank;
 import static java.util.Objects.nonNull;
@@ -32,7 +32,7 @@ public class MedicoService {
                         .crm(medico.getCrm())
                         .especialidade(medico.getEspecialidade())
                         .build())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public MedicoResponse getMedicoById(UUID id) {
@@ -81,9 +81,9 @@ public class MedicoService {
         if(optionalMedico.isPresent()){
             Medico medico = optionalMedico.get();
             Pessoa pessoa = medico.getPessoa();
-            pessoa.setNome(medicoRequest.getNome());
-            pessoa.setDataNascimento(medicoRequest.getDataNascimento());
-            pessoa.setTipo(medicoRequest.getTipo());
+            pessoa.setNome(getFieldString(medicoRequest.getNome(),pessoa.getNome()));
+            pessoa.setDataNascimento(getFieldLocal(medicoRequest.getDataNascimento(),pessoa.getDataNascimento()));
+            pessoa.setTipo(getFieldString(medicoRequest.getTipo(),pessoa.getTipo()));
 
             pessoaService.updatePessoa(medico.getPessoa().getId(),pessoa);
 
@@ -105,6 +105,10 @@ public class MedicoService {
 
     private static String getFieldString(String stringRequest, String stringField){
         return isNotBlank(stringRequest) ? stringRequest : stringField;
+    }
+
+    private static LocalDateTime getFieldLocal(LocalDateTime localRequest, LocalDateTime localField){
+        return nonNull(localRequest) ? localRequest : localField;
     }
 
     public void deleteMedico(UUID id){medicoRepository.deleteById(id);}

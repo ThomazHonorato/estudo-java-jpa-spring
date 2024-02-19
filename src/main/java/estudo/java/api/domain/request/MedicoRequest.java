@@ -1,5 +1,6 @@
 package estudo.java.api.domain.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -8,7 +9,8 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MedicoRequest extends PessoaRequest{
-    private String nome;
+    @NotBlank(message = "CRM não pode ser vazio")
     private String crm;
+    @NotBlank(message = "ESPECIALIDADE não pode ser vazio")
     private String especialidade;
 }

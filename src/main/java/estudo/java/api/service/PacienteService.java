@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static io.micrometer.common.util.StringUtils.isNotBlank;
 import static java.util.Objects.nonNull;
@@ -36,7 +35,7 @@ public class PacienteService {
                         .cpf(paciente.getPessoa().getCpf())
                         .historicoMedico(paciente.getHistoricoMedico())
                         .build())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     //Metodo para resgatar um paciente pelo seu ID

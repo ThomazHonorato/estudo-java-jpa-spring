@@ -2,7 +2,7 @@ package estudo.java.api.controller;
 
 import estudo.java.api.domain.request.PacienteRequest;
 import estudo.java.api.domain.response.PacienteResponse;
-import estudo.java.api.service.PacienteService;
+import estudo.java.api.service.PacienteServiceV2;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +13,12 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/paciente")
-public class PacienteController {
+@RequestMapping("/api/pacienteV2")
+public class PacienteControllerV2 {
 
     @Autowired
-    private PacienteService pacienteService;
+    private PacienteServiceV2 pacienteService;
+
 
     @GetMapping
     public ResponseEntity<List<PacienteResponse>> getAllPacientes() {

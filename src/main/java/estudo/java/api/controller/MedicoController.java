@@ -3,6 +3,7 @@ package estudo.java.api.controller;
 import estudo.java.api.domain.request.MedicoRequest;
 import estudo.java.api.domain.response.MedicoResponse;
 import estudo.java.api.service.MedicoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class MedicoController {
     }
 
     @PostMapping
-    public ResponseEntity<MedicoResponse> createMedico(@RequestBody MedicoRequest medicoRequest) {
+    public ResponseEntity<MedicoResponse> createMedico(@RequestBody @Valid MedicoRequest medicoRequest) {
         MedicoResponse medicoResponse = medicoService.createMedico(medicoRequest);
         if (medicoResponse != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(medicoResponse);
@@ -45,7 +46,7 @@ public class MedicoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MedicoResponse> updateMedico(@PathVariable UUID id, @RequestBody MedicoRequest medicoRequest){
+    public ResponseEntity<MedicoResponse> updateMedico(@PathVariable UUID id, @RequestBody @Valid MedicoRequest medicoRequest){
         MedicoResponse medicoResponse = medicoService.updateMedico(id, medicoRequest);
         if(medicoResponse != null){
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(medicoResponse);
