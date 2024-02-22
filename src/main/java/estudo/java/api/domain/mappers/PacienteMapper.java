@@ -15,17 +15,16 @@ public interface PacienteMapper {
     @Mapping(target = "pessoa.id", ignore = true)
     @Mapping(target = "consulta", ignore = true)
     default void toUpdateEntity(PacienteRequest pacienteRequest, @MappingTarget Paciente paciente) {
-        if (pacienteRequest.getPessoa().getCpf() != null) {
+        if (pacienteRequest.getPessoa().getCpf() != null && paciente.getPessoa() != null) {
             paciente.getPessoa().setCpf(pacienteRequest.getPessoa().getCpf());
         }
-        if (pacienteRequest.getHistoricoMedico() != null) {
+        if (pacienteRequest.getHistoricoMedico() != null && paciente.getPessoa() != null) {
             paciente.setHistoricoMedico(pacienteRequest.getHistoricoMedico());
         }
         if (pacienteRequest.getPessoa().getNome() != null && paciente.getPessoa() != null) {
             paciente.getPessoa().setNome(pacienteRequest.getPessoa().getNome());
         }
     }
-
 
     @Mapping(target = "nome", source = "pessoa.nome")
     @Mapping(target = "cpf", source = "pessoa.cpf")

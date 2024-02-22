@@ -1,5 +1,6 @@
 package estudo.java.api.domain.request;
 
+import estudo.java.api.domain.validators.GrupoValidacao;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,12 +15,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PessoaRequest {
-    //@NotBlank(message = "O Nome não pode ser vazio")
+    @NotBlank(message = "O Nome não pode ser vazio", groups = GrupoValidacao.Inserir.class)
     private String nome;
-    //@NotBlank(message="CPF não pode ser vazio")
+    @NotBlank(message="CPF não pode ser vazio", groups = {GrupoValidacao.Inserir.class})
     private String cpf;
-    //@NotNull(message = "ERRO data vazia")
+    @NotNull(message = "ERRO data vazia", groups = GrupoValidacao.Inserir.class)
     private LocalDateTime dataNascimento;
-    //@NotBlank(message = "Tipo não pode ser vazio")
+    @NotBlank(message = "Tipo não pode ser vazio", groups = GrupoValidacao.Inserir.class)
     private String tipo;
 }

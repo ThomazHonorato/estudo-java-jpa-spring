@@ -2,11 +2,12 @@ package estudo.java.api.controller;
 
 import estudo.java.api.domain.request.PacienteRequest;
 import estudo.java.api.domain.response.PacienteResponse;
+import estudo.java.api.domain.validators.GrupoValidacao;
 import estudo.java.api.service.PacienteServiceV2;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,12 +38,12 @@ public class PacienteControllerV2 {
     }
 
     @PostMapping
-    public ResponseEntity<PacienteResponse> createPaciente(@RequestBody @Valid PacienteRequest pacienteRequest) {
+    public ResponseEntity<PacienteResponse> createPaciente(@RequestBody @Validated(GrupoValidacao.Inserir.class) PacienteRequest pacienteRequest) {
         return ResponseEntity.ok(pacienteService.createPaciente(pacienteRequest));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PacienteResponse> updatePaciente(@PathVariable UUID id, @RequestBody @Valid PacienteRequest pacienteRequest) {
+    public ResponseEntity<PacienteResponse> updatePaciente(@PathVariable UUID id, @RequestBody @Validated(GrupoValidacao.Atualizar.class) PacienteRequest pacienteRequest) {
         return ResponseEntity.ok(pacienteService.updatePaciente(id, pacienteRequest));
     }
 
